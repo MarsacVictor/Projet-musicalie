@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Festival{% endblock %}
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">{{ festival.nom }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Date :</strong> {{ festival.date | date("m/d/Y") }}</p>
+                        <p><strong>Artiste(s) :</strong>
+                            {% for a in festival.artiste %}
+                                {{ a.nom }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p><strong>Département :</strong> {{ festival.departement.nom }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

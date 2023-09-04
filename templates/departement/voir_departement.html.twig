@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voir Département{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Départements de la région : {{ region }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for departement in departements %}
+                <div class="col-md-6 mb-5">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ departement.nom }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ departement.region }}</h6>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Festivals dans la région :</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for festivalList in festivals %}
+                {% for festival in festivalList %}
+                    {% if festival.departement.region == region %}
+                        <div class="col-md-4 mb-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ festival.nom }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ festival.date | date("m/d/Y") }}</h6>
+                                    <p class="card-text">Département : {{ festival.departement.nom }}</p>
+                                    <a href="{{ path('app_home_voir_festival', {'id': festival.id}) }}" class="btn btn-primary">Voir Festival</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

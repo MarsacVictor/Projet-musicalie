@@ -1,0 +1,40 @@
+{% extends '/admin/admin_base.html.twig' %}
+
+{% block title %}Hello AdminFestivalController!{% endblock %}
+
+{% block contenu %}
+    {% for message in app.flashes('notice') %}
+        <div class="alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div>
+        <a class="btn btn-primary" href="{{ path('app_admin_festival_ajouter') }}">Ajouter</a>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Date de création</th>
+                <th>Lieu</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for festival in festivals %}
+                <tr>
+                    <td>{{ festival.nom }}</td>
+                    <td>{{ festival.date | date("d/m/Y")}}</td>
+                    <td>{{ festival.dateCreation | date("d/m/Y")}}</td>
+                    <td>{{ festival.lieu }}</td>
+                    <td>
+                        <a class="btn btn-success" type="submit" href="{{path('app_admin_festival_modifier', {'id' : festival.id}) }}">Modifier</a>
+                        <a class="btn btn-warning" type="submit" onclick="confirm('Êtes vous sur de vouloir supprimer le festival')" href="{{path('app_admin_festival_supprimer', {'id' : festival.id}) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}
